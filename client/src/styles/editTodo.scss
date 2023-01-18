@@ -1,0 +1,17 @@
+@import "./_mixins.scss";
+
+.checkboxContainer {
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  @include contentInCenter;
+}
+.errorEditContainer {
+  @include contentInColumn;
+  gap: 10px;
+}
+.editTodo {
+  @include buttonStyles;
+  height: 45px;
+}
