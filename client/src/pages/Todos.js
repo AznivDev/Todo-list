@@ -30,7 +30,7 @@ class Todos extends React.Component {
   //Delete user's todo.
   async handleDeleteTodo(id) {
     try {
-      await fetch(`/todos/${id}`, {
+      await fetch(`http://localhost:17000/todos/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

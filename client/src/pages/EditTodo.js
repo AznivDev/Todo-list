@@ -19,7 +19,7 @@ class EditTodo extends React.Component {
   componentDidMount() {
     this.getTodo();
   }
-  
+
   //Change todo's state done or pending.
   handleCheck() {
     !!this.state.checked
@@ -66,7 +66,7 @@ class EditTodo extends React.Component {
   }
   //Change the value of the state when data is entered in the corresponding input field
   handleChange(e) {
-    this.setState({[e.target.name]: e.target.value})
+    this.setState({ [e.target.name]: e.target.value });
   }
   render() {
     let id = this.props.router.params.id;
@@ -76,22 +76,30 @@ class EditTodo extends React.Component {
         <p className="todosTitle">Edit todo</p>
         {this.state.todo.map((item) => (
           <div className="createTodoContainer" key={item.id}>
-            <input
-              name="title"
-              className="todosInput"
-              defaultValue={item.title}
-              onChange={(e) => {
-                this.handleChange(e);
-              }}
-            />
-            <input
-              name="details"
-              className="todosInput"
-              defaultValue={item.details}
-              onChange={(e) => {
-                this.handleChange(e);
-              }}
-            />
+            <label htmlFor="title" className="todosLabel">
+              Change todo title
+              <input
+                name="title"
+                id="title"
+                className="todosInput"
+                defaultValue={item.title}
+                onChange={(e) => {
+                  this.handleChange(e);
+                }}
+              />
+            </label>
+            <label htmlFor="details" className="todosLabel">
+              Change todo details
+              <input
+                name="details"
+                id="details"
+                className="todosInput"
+                defaultValue={item.details}
+                onChange={(e) => {
+                  this.handleChange(e);
+                }}
+              />
+            </label>
             <div className="checkboxContainer">
               <input
                 type="checkbox"

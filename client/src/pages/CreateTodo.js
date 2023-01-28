@@ -59,24 +59,32 @@ class CreateTodo extends React.Component {
         <Header />
         <p className="todosTitle">Create todo</p>
         <div className="createTodoContainer">
-          <input
-            type="text"
-            name="title"
-            className="todosInput"
-            placeholder="Todo title"
-            onChange={(e) => {
-              this.handleChange(e);
-            }}
-          />
-          <textarea
-            type="text"
-            name="details"
-            className="todosInput"
-            placeholder="Todo details"
-            onChange={(e) => {
-              this.handleChange(e);
-            }}
-          />
+          <label htmlFor="title" className="todosLabel">
+            Greate todo title
+            <input
+              type="text"
+              name="title"
+              id="title"
+              className="todosInput"
+              placeholder="Todo title"
+              onChange={(e) => {
+                this.handleChange(e);
+              }}
+            />
+          </label>
+          <label htmlFor="details" className="todosLabel">
+            Greate todo details
+            <textarea
+              type="text"
+              name="details"
+              id="details"
+              className="todosInput"
+              placeholder="Todo details"
+              onChange={(e) => {
+                this.handleChange(e);
+              }}
+            />
+          </label>
           <div className="errorCreateContainer">
             <p name="errorText" className="errorField">
               {this.state.errorText}

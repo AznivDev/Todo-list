@@ -19,13 +19,22 @@
     width: 50%;
     height: 100%;
     @include contentInColumn;
-    .todosInput {
+    .todosLabel {
       width: 100%;
-      min-height: 45px;
-      padding: 5px;
-      border: 1px solid $borderBottomColor;
-      outline: none;
-      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      color: $accentColor;
+      font-size: 22px;
+      .todosInput {
+        width: 100%;
+        min-height: 45px;
+        padding: 5px;
+        border: 1px solid $borderBottomColor;
+        outline: none;
+        border-radius: 12px;
+      }
     }
     .errorCreateContainer {
       @include contentInColumn;
