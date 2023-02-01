@@ -60,6 +60,7 @@ const login = async (req, res) => {
     res.status(400).json({ message: "User name or password is not valid" });
   }
 };
+
 module.exports = {
   register,
   login,

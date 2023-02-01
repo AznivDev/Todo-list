@@ -1,4 +1,5 @@
 const express = require("express");
+const router = express.Router();
 const {
   addTodo,
   deleteTodo,
@@ -6,7 +7,6 @@ const {
   getTodos,
   updateTodo,
 } = require("../controllers/todos.js");
-const router = express.Router();
 const checkToken = require("../middleware/middleware.js");
 
 router.post("/todos", addTodo);

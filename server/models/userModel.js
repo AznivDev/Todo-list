@@ -1,8 +1,10 @@
 const { Sequelize, DataTypes } = require("sequelize");
+
 const sequelize = new Sequelize("TodosList", "root", "root", {
   dialect: "mysql",
   port: 1618,
 });
+
 const Users = sequelize.define(
   "Users",
   {
@@ -40,4 +42,5 @@ const Users = sequelize.define(
     timestamps: false,
   }
 );
+
 module.exports = Users;

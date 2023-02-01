@@ -27,7 +27,6 @@ function App() {
           <Route path="/todos" element={<Todos />} />
           <Route path="/todos/:id" element={<EditTodo />} />
           <Route path="/createTodo" element={<CreateTodo />} />
-          <Route path="/download" element={<Todos />} />
         </Route>
       </Routes>
     </div>

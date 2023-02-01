@@ -1,8 +1,14 @@
 import React from "react";
-import withRouter from "../withRouter ";
+import withRouter from "../withRouter";
 import "../styles/logout.scss";
 
-class Logout extends React.Component {
+interface IProps {
+  router: {
+    navigate: (path: string) => void;
+  };
+}
+
+class Logout extends React.Component<IProps> {
   render() {
     return (
       <div
@@ -10,7 +16,8 @@ class Logout extends React.Component {
           localStorage.removeItem("token");
           this.props.router.navigate("/auth/signin");
         }}
-        className="logoutContainer">
+        className="logoutContainer"
+      >
         <p className="logoutText">Logout</p>
       </div>
     );

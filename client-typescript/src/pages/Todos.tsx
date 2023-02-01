@@ -1,22 +1,29 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { BiEditAlt } from "react-icons/bi";
-import { handleGetTodos } from "../services/apiTodos/apiTodos";
 import Header from "../components/Header";
-import withRouter from "../withRouter ";
+import { Link } from "react-router-dom";
+//@ts-ignore
+import { RiDeleteBin6Line } from "react-icons/ri";
+//@ts-ignore
+import { BiEditAlt } from "react-icons/bi";
+import { Todo } from "../types/todo";
+import { handleGetTodos } from "../services/apiTodos/apiTodos";
+import withRouter from "../withRouter";
 import "../styles/todos.scss";
 
-class Todos extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      todoList: [],
-      title: "",
-      details: "",
-      deleteClicked: false,
-    };
-  }
+type IState = {
+  title: string;
+  details: string;
+  todo: Todo[];
+  checked: boolean;
+};
+
+class Todos extends React.Component<IState> {
+  state = {
+    todoList: [],
+    title: "",
+    details: "",
+    deleteClicked: false,
+  };
   componentDidMount() {
     this.getTodos();
   }
@@ -28,9 +35,9 @@ class Todos extends React.Component {
     });
   }
   //Delete user's todo.
-  async handleDeleteTodo(id) {
+  async handleDeleteTodo(id: string) {
     try {
-      await fetch(`http://localhost:17000/todos/${id}`, {
+      (await fetch(`http://localhost:17000/todos/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +46,7 @@ class Todos extends React.Component {
         body: JSON.stringify({
           id,
         }),
-      });
+      })) as unknown as Todo;
     } catch (error) {
       console.log(error);
     }
@@ -81,7 +88,7 @@ class Todos extends React.Component {
                 </tr>
               </thead>
               <tbody className="todoBody">
-                {this.state.todoList.map((todo) => (
+                {this.state.todoList.map((todo: Todo) => (
                   <tr className="todosItem" key={todo.id}>
                     <td className="todoTitle">{todo.title}</td>
                     <td className="todoText">{todo.details}</td>
@@ -98,7 +105,9 @@ class Todos extends React.Component {
                       </Link>
                       <RiDeleteBin6Line
                         className="todoDelete"
-                        onClick={(e) => {
+                        onClick={(
+                          e: React.MouseEvent<SVGElement, MouseEvent>
+                        ) => {
                           e.preventDefault();
                           this.handleDeleteTodo(todo.id);
                         }}

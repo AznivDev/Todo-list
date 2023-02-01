@@ -1,8 +1,10 @@
 const { Sequelize, DataTypes } = require("sequelize");
+
 const sequelize = new Sequelize("TodosList", "root", "root", {
   dialect: "mysql",
   port: 1618,
 });
+
 const Todos = sequelize.define(
   "Todos",
   {

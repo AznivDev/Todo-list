@@ -1,13 +1,13 @@
 import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
 
-class TodoDetails extends React.Component {
+class LoginLeyout extends React.Component {
   render() {
-    if (!localStorage.getItem("Token")) {
+    if (localStorage.getItem("token")) {
       return <Navigate to="/todos" />;
     }
     return <Outlet />;
   }
 }
 
-export default TodoDetails;
+export default LoginLeyout;

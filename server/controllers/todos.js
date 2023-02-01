@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const { Todos } = require("../db.js");
+
 //createTodo
 const addTodo = async (req, res) => {
   try {
@@ -121,6 +122,7 @@ const updateTodo = async (req, res) => {
     console.error(e);
   }
 };
+
 module.exports = {
   addTodo,
   getTodo,

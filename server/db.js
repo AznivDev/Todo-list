@@ -24,6 +24,7 @@ Todos.belongsTo(Users);
       console.log(err);
     });
 })();
+
 module.exports = {
   Users,
   Todos,

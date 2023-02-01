@@ -1,25 +1,37 @@
 import React from "react";
-import Header from "../components/Header";
 import { handleGetTodo } from "../services/apiTodos/apiTodo";
-import withRouter from "../withRouter ";
+import { Todo } from "../types/todo";
+import Header from "../components/Header";
+import withRouter from "../withRouter";
 import "../styles/todos.scss";
 import "../styles/editTodo.scss";
 
-class EditTodo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: "",
-      details: "",
-      todo: [],
-      checked: false,
+interface IProps {
+  router: {
+    navigate: (path: string) => void;
+    params: {
+      id: string;
     };
-  }
+  };
+}
+
+type IState = {
+  title: string;
+  details: string;
+  todo: Todo[];
+  checked: boolean;
+};
+class EditTodo extends React.Component<IProps, IState> {
+  state = {
+    title: "",
+    details: "",
+    todo: [],
+    checked: false,
+  };
 
   componentDidMount() {
     this.getTodo();
   }
-
   //Change todo's state done or pending.
   handleCheck() {
     !!this.state.checked
@@ -35,7 +47,9 @@ class EditTodo extends React.Component {
     let id = this.props.router.params.id;
     let res = await handleGetTodo(id);
     let arr = [];
-    arr.push(res);
+    if (res) {
+      arr.push(res as Todo);
+    }
     this.setState({
       checked: arr[0].done,
     });
@@ -44,7 +58,7 @@ class EditTodo extends React.Component {
     });
   }
   //Edit user's one todo.
-  async handleEditTodo(id) {
+  async handleEditTodo(id: string) {
     try {
       await fetch(`http://localhost:17000/todos/${id}`, {
         method: "PUT",
@@ -54,19 +68,20 @@ class EditTodo extends React.Component {
         },
         body: JSON.stringify({
           id,
-          title: this.state.title || this.state.todo.title,
-          details: this.state.details || this.state.todo.details,
+          title: this.state.title,
+          details: this.state.details,
           done: this.state.checked,
         }),
       });
+      console.log("handleEditTodo", this.state.checked);
       this.props.router.navigate("/todos");
     } catch (error) {
       console.log(error);
     }
   }
   //Change the value of the state when data is entered in the corresponding input field
-  handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  handleChange(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
+    this.setState({ [e.target.name]: e.target.value } as unknown as IState);
   }
   render() {
     let id = this.props.router.params.id;
@@ -74,33 +89,27 @@ class EditTodo extends React.Component {
       <div className="todosWrapper">
         <Header />
         <p className="todosTitle">Edit todo</p>
-        {this.state.todo.map((item) => (
+
+        {this.state.todo.map((item: Todo) => (
           <div className="createTodoContainer" key={item.id}>
-            <label htmlFor="title" className="todosLabel">
-              Change todo title
-              <input
-                name="title"
-                id="title"
-                className="todosInput"
-                defaultValue={item.title}
-                onChange={(e) => {
-                  this.handleChange(e);
-                }}
-              />
-            </label>
-            <label htmlFor="details" className="todosLabel">
-              Change todo details
-              <input
-                name="details"
-                id="details"
-                className="todosInput"
-                defaultValue={item.details}
-                onChange={(e) => {
-                  this.handleChange(e);
-                }}
-              />
-            </label>
+            <input
+              name="title"
+              className="todosInput"
+              defaultValue={item.title}
+              onChange={(e) => {
+                this.handleChange(e);
+              }}
+            />
+            <input
+              name="details"
+              className="todosInput"
+              defaultValue={item.details}
+              onChange={(e) => {
+                this.handleChange(e);
+              }}
+            />
             <div className="checkboxContainer">
+              <p className="checkboxText">Is done this todo?</p>
               <input
                 type="checkbox"
                 name="done"
@@ -109,7 +118,6 @@ class EditTodo extends React.Component {
                   this.handleCheck();
                 }}
               />
-              <p className="checkboxText">Is done this todo?</p>
             </div>
             <button
               className="editTodo"
